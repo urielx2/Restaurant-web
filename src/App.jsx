@@ -1,9 +1,11 @@
+import { Hero } from "./components";
+import { Header } from "./layout";
+
 function App() {
   return (
     <>
-      <div>
-        <h1>Hola</h1>
-      </div>
+      <Header />
+      <Hero />
     </>
   );
 }
