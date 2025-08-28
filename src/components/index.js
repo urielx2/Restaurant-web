@@ -3,5 +3,6 @@ export { Hero } from "./Hero";
 export { AboutUs } from "./AboutUs";
 export { Categories } from "./Categories";
 export { Customize } from "./Customize";
+export { Menu } from "./Menu";
 export * from "./ui";
 export * from "./layout";

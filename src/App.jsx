@@ -1,5 +1,5 @@
 import { Header } from "./layout";
-import { AboutUs, Categories, Customize, Hero } from "./components";
+import { AboutUs, Categories, Customize, Hero, Menu } from "./components";
 
 function App() {
   return (
@@ -10,6 +10,7 @@ function App() {
         <AboutUs />
         <Categories />
         <Customize />
+        <Menu />
       </main>
     </>
   );
