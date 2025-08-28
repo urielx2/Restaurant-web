@@ -1,5 +1,12 @@
 import { Header } from "./layout";
-import { AboutUs, Categories, Customize, Hero, Menu } from "./components";
+import {
+  AboutUs,
+  Categories,
+  Customize,
+  Hero,
+  Menu,
+  Ubication,
+} from "./components";
 
 function App() {
   return (
@@ -11,7 +18,11 @@ function App() {
         <Categories />
         <Customize />
         <Menu />
+        <Ubication />
       </main>
+      <footer className="p-5 text-center">
+        <span>&copy; Restaurante hamburguesas Erick 2025</span>
+      </footer>
     </>
   );
 }
