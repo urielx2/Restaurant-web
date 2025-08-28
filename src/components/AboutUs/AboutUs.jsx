@@ -31,7 +31,7 @@ export const AboutUs = () => {
             <span className="text-xs">Acerca de</span>
             <h2 className="text-4xl font-semibold">Excelencia y experiencia</h2>
           </div>
-          <p className="text-sm font-light">
+          <p className="text-sm font-light max-w-lg">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam, quis nostrud exercitation

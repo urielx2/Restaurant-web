@@ -1,4 +1,4 @@
-import { AboutUs, Hero } from "./components";
+import { AboutUs, Categories, Hero } from "./components";
 import { Header } from "./layout";
 
 function App() {
@@ -8,6 +8,7 @@ function App() {
       <main>
         <Hero />
         <AboutUs />
+        <Categories />
       </main>
     </>
   );
