@@ -3,7 +3,7 @@ import { ButtonLink } from "../ui";
 
 export const Ubication = () => {
   return (
-    <div className="bg-secondary text-black">
+    <div id="contact" className="bg-secondary text-black">
       <Container>
         <h2 className="text-3xl font-semibold text-center mb-10">Ubicación</h2>
 
@@ -25,7 +25,7 @@ export const Ubication = () => {
 
             <div className="mt-5">
               <ButtonLink
-                href="https://www.google.com/maps/place/Hamburguesas+Erick,+Zaragoza,+Nuevo+Le%C3%B3n"
+                href="https://maps.app.goo.gl/AUWb25e9WHNi19kM8"
                 text="Visitar"
                 className="bg-primary text-white hover:bg-amber-500"
               />

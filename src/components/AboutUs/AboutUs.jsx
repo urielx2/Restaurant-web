@@ -4,7 +4,7 @@ import { ButtonLink } from "../ui";
 
 export const AboutUs = () => {
   return (
-    <Container>
+    <Container id="about-us">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-20">
         <div className="relative">
           <img
@@ -37,7 +37,7 @@ export const AboutUs = () => {
             ad minim veniam, quis nostrud exercitation
           </p>
           <ButtonLink
-            href="#"
+            href="/orders"
             text="Ordenar ya"
             className="uppercase bg-primary text-white hover:bg-amber-500 self-start"
           />

@@ -1,6 +1,8 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { IconX } from "@tabler/icons-react";
 import { navLinks } from "../../utils";
+import { Link } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 
 export const MobileMenu = ({ open, setOpen }) => {
   return (
@@ -35,13 +37,14 @@ export const MobileMenu = ({ open, setOpen }) => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: link.id * 0.05 }}
                 >
-                  <a
-                    href={link.href}
+                  <HashLink
+                    smooth
+                    to={link.href}
                     className="block font-light uppercase text-sm hover:text-primary transition-colors"
                     onClick={() => setOpen(false)}
                   >
                     {link.label}
-                  </a>
+                  </HashLink>
                 </motion.li>
               ))}
             </ul>
@@ -52,12 +55,12 @@ export const MobileMenu = ({ open, setOpen }) => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
             >
-              <a
-                href="#"
+              <Link
+                to="/orders"
                 className="block w-full text-center py-2 px-3 bg-primary text-white rounded-md hover:bg-amber-500 transition-colors duration-300"
               >
                 Ordenar
-              </a>
+              </Link>
             </motion.div>
           </motion.div>
         </motion.div>

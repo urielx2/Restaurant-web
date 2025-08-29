@@ -71,7 +71,7 @@ function Section({ title, icon: Icon, items }) {
 
 export const Menu = () => {
   return (
-    <Container>
+    <Container id="menu">
       <div className="max-w-6xl mx-auto">
         <header className="mb-10 md:mb-14">
           <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-white">
@@ -96,9 +96,9 @@ export const Menu = () => {
 
         <div className="mt-10 flex justify-center">
           <ButtonLink
-            href=""
+            href="/orders"
             text="Ordenar ya"
-            className="bg-primary text-white hover:bg-amber-500 uppercase"
+            className="bg-primary text-white hover:bg-amber-500 uppercase w-full md:w-fit text-center"
           />
         </div>
       </div>

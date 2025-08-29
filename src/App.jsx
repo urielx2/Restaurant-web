@@ -1,29 +1,15 @@
-import { Header } from "./layout";
-import {
-  AboutUs,
-  Categories,
-  Customize,
-  Hero,
-  Menu,
-  Ubication,
-} from "./components";
+import { Route, Routes } from "react-router-dom";
+import { Home, Orders } from "./pages";
+import { Layout } from "./layout";
 
 function App() {
   return (
-    <>
-      <Header />
-      <main>
-        <Hero />
-        <AboutUs />
-        <Categories />
-        <Customize />
-        <Menu />
-        <Ubication />
-      </main>
-      <footer className="p-5 text-center">
-        <span>&copy; Restaurante hamburguesas Erick 2025</span>
-      </footer>
-    </>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="/orders" element={<Orders />} />
+      </Route>
+    </Routes>
   );
 }
 

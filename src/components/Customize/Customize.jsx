@@ -21,7 +21,7 @@ export const Customize = () => {
     }, 0);
 
   return (
-    <Container>
+    <Container id="customize">
       <h2 className="text-3xl font-semibold text-center mb-10">
         Personaliza tu pedido
       </h2>
@@ -102,7 +102,7 @@ export const Customize = () => {
       <div
         className="mt-10 mx-auto cursor-pointer font-semibold text-lg rounded-md 
              transition-colors duration-300 py-2 px-3 uppercase 
-             bg-primary text-white hover:bg-amber-500 w-fit"
+             bg-primary text-white hover:bg-amber-500 w-full md:w-fit text-center"
       >
         <p className="font-light">
           Ordenar por:{" "}
