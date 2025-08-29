@@ -1,4 +1,4 @@
-export const Container = ({ children, className, id }) => {
+export const Container = ({ children, className = "", id }) => {
   return (
     <section
       id={id}

@@ -5,5 +5,6 @@ export { Categories } from "./Categories";
 export { Customize } from "./Customize";
 export { Menu } from "./Menu";
 export { Ubication } from "./Ubication";
+export * from "./Orders";
 export * from "./ui";
 export * from "./layout";
