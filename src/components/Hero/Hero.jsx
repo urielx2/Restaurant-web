@@ -7,7 +7,7 @@ export const Hero = () => {
       style={{ backgroundImage: "url('/background.webp')" }}
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-        <div className="xl:max-w-xl mx-auto w-full px-3 md:px-2 flex justify-center items-center">
+        <div className="xl:max-w-xl mx-auto w-full px-5 md:px-2 flex justify-center items-center">
           <div className="text-center lg:text-start py-10 md:py-5 flex flex-col gap-6">
             <h1 className="text-4xl md:text-6xl font-bold">
               Bienvenido a tu restaurante
@@ -20,12 +20,12 @@ export const Hero = () => {
 
             <div className="flex gap-4 justify-center lg:justify-start">
               <ButtonLink
-                href="#"
+                href="/orders"
                 text="Ordenar ya"
                 className="uppercase bg-primary text-white hover:bg-amber-500"
               />
               <ButtonLink
-                href="#"
+                href="#menu"
                 text="Ver menu"
                 className="uppercase border text-white hover:bg-white hover:text-black"
               />
