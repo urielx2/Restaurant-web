@@ -8,7 +8,7 @@ export const ScrollToTopButton = () => {
 
   useEffect(() => {
     const unsubscribe = scrollY.on("change", (latest) => {
-      setIsVisible(latest > 200);
+      setIsVisible(latest > 800);
     });
     return () => unsubscribe();
   }, [scrollY]);

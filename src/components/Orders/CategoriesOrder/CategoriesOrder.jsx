@@ -1,22 +1,8 @@
-import { useState, memo } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { CardGrid } from "../../ui";
-
-const hamburguesas = [
-  { id: 1, text: "Hamburguesa con papas", price: 20, img: "/hamburguesa.webp" },
-  { id: 2, text: "Hamburguesa doble", price: 30, img: "/hamburguesa.webp" },
-  { id: 3, text: "Hamburguesa premium", price: 40, img: "/hamburguesa.webp" },
-];
-
-const alitas = [
-  { id: 1, text: "Alitas BBQ", price: 25, img: "/alitas.webp" },
-  { id: 2, text: "Boneless picante", price: 30, img: "/alitas.webp" },
-];
-
-const tacos = [
-  { id: 1, text: "Tacos de bistec", price: 25, img: "/tacos.webp" },
-  { id: 2, text: "Tacos de trompo", price: 30, img: "/tacos.webp" },
-];
+import { alitas, hamburguesas, tacos } from "../../../utils";
+import { CategoryTab } from "./components/CategoryTab";
 
 const categoriesOrder = [
   {
@@ -38,28 +24,6 @@ const categoriesOrder = [
     component: <CardGrid items={tacos} />,
   },
 ];
-
-const CategoryTab = memo(({ category, isSelected, onClick }) => (
-  <li onClick={() => onClick(category.id)} className="cursor-pointer">
-    <motion.div
-      className="flex flex-col items-center gap-1 justify-center"
-      initial={false}
-      animate={{ opacity: isSelected ? 1 : 0.3 }}
-      whileHover={{ opacity: 1 }}
-      transition={{ duration: 0.3 }}
-      layout
-    >
-      <img
-        src={category.img}
-        alt={category.category}
-        className="w-12 h-12 md:w-15 md:h-15 object-cover"
-      />
-      <p className="uppercase font-bold text-xs md:text-sm text-center whitespace-nowrap">
-        {category.category}
-      </p>
-    </motion.div>
-  </li>
-));
 
 export const CategoriesOrder = () => {
   const [activeCategory, setActiveCategory] = useState(categoriesOrder[0].id);
