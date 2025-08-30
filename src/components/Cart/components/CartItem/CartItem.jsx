@@ -12,7 +12,7 @@ export const CartItem = memo(
         animate={{ opacity: 1, x: 0 }}
         exit={{ opacity: 0, x: 50 }}
         transition={{ duration: 0.2 }}
-        className={`flex justify-between items-center gap-3 py-5 px-4 relative ${
+        className={`flex justify-between items-center gap-3 py-5 relative ${
           isLast ? "" : "border-b border-white/20"
         }`}
       >
