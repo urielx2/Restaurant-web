@@ -15,24 +15,44 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = (item) => {
     setCartItems((prev) => {
-      const exists = prev.find((p) => p.id === item.id);
+      const exists = prev.find(
+        (p) =>
+          p.id === item.id &&
+          (p.selectedSauce || null) === (item.selectedSauce || null)
+      );
+
       if (exists) {
         return prev.map((p) =>
-          p.id === item.id ? { ...p, qty: p.qty + 1 } : p
+          p.id === item.id &&
+          (p.selectedSauce || null) === (item.selectedSauce || null)
+            ? { ...p, qty: p.qty + 1 }
+            : p
         );
       }
+
       return [...prev, { ...item, qty: 1 }];
     });
   };
 
-  const removeFromCart = (id) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== id));
+  const removeFromCart = (itemToRemove) => {
+    setCartItems((prev) =>
+      prev.filter(
+        (item) =>
+          item.id !== itemToRemove.id ||
+          (item.selectedSauce || null) !== (itemToRemove.selectedSauce || null)
+      )
+    );
   };
 
-  const updateQuantity = (id, qty) => {
+  const updateQuantity = (itemToUpdate, qty) => {
     if (qty < 1) return;
     setCartItems((prev) =>
-      prev.map((item) => (item.id === id ? { ...item, qty } : item))
+      prev.map((item) =>
+        item.id === itemToUpdate.id &&
+        (item.selectedSauce || null) === (itemToUpdate.selectedSauce || null)
+          ? { ...item, qty }
+          : item
+      )
     );
   };
 

@@ -1,6 +1,8 @@
 import { IconStarFilled } from "@tabler/icons-react";
 import { motion } from "framer-motion";
 import { useCart } from "../../../hooks/useCart";
+import { useState } from "react";
+import { useSnackbar } from "notistack";
 
 const cardVariants = {
   hidden: { opacity: 0, y: 28 },
@@ -36,6 +38,54 @@ const imageVariants = {
 
 export const CardGrid = ({ items }) => {
   const { setOpenCart, addToCart } = useCart();
+  const [selectedSauce, setSelectedSauce] = useState({});
+  const { enqueueSnackbar } = useSnackbar();
+
+  const handleAdd = (item) => {
+    if (item.sauces && !selectedSauce[item.id]) {
+      enqueueSnackbar(
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 20 }}
+          transition={{ duration: 0.4 }}
+          className="text-white font-medium"
+        >
+          🍗 Elige una salsa antes de agregar al carrito
+        </motion.div>,
+        {
+          variant: "error",
+          autoHideDuration: 2500,
+          anchorOrigin: { vertical: "top", horizontal: "center" },
+        }
+      );
+      return;
+    }
+
+    addToCart({
+      ...item,
+      selectedSauce: selectedSauce[item.id] || null,
+    });
+    setOpenCart(true);
+    setSelectedSauce({});
+
+    enqueueSnackbar(
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.9 }}
+        transition={{ duration: 0.3 }}
+        className="text-white font-medium"
+      >
+        ✅ {item.text} agregado al carrito
+      </motion.div>,
+      {
+        variant: "success",
+        autoHideDuration: 2000,
+        anchorOrigin: { vertical: "top", horizontal: "center" },
+      }
+    );
+  };
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
@@ -47,41 +97,57 @@ export const CardGrid = ({ items }) => {
           animate="show"
           custom={i}
           whileHover="hover"
-          whileTap="tap"
+          onClick={() => handleAdd(item)}
+          className="cursor-pointer rounded-3xl bg-[#111]/70 backdrop-blur-sm ring-1 ring-white/5 p-6 md:p-8 flex flex-col h-full gap-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_20px_60px_rgba(0,0,0,0.35)]"
         >
-          <div
-            onClick={() => {
-              addToCart(item);
-              setOpenCart(true);
-            }}
-            className="cursor-pointer rounded-3xl bg-[#111]/70 backdrop-blur-sm ring-1 ring-white/5 p-6 md:p-8 flex flex-col h-full gap-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_20px_60px_rgba(0,0,0,0.35)]"
-          >
-            <div className="flex-1 flex flex-col gap-3">
-              <motion.img
-                src={item.img}
-                alt={item.text}
-                className="rounded-3xl w-full object-cover"
-                variants={imageVariants}
-              />
-              <h4 className="font-bold text-lg">{item.text}</h4>
-            </div>
-
-            <div className="flex justify-between items-center">
-              <div className="flex gap-1 text-yellow-400">
-                {[...Array(item.stars || 5)].map((_, idx) => (
-                  <IconStarFilled key={idx} size={18} />
-                ))}
-              </div>
-              <span className="font-semibold">${item.price}</span>
-            </div>
-            <button
-              type="button"
-              className="py-2 px-3 rounded-md transition-colors duration-300 bg-primary text-white text-center
-              hover:bg-amber-500 cursor-pointer"
-            >
-              Agregar al carrito
-            </button>
+          <div className="flex-1 flex flex-col gap-3">
+            <motion.img
+              src={item.img}
+              alt={item.text}
+              className="rounded-3xl w-full object-cover cursor-pointer"
+              variants={imageVariants}
+            />
+            <h4 className="font-bold text-lg">{item.text}</h4>
           </div>
+
+          {item.sauces && (
+            <div className="flex gap-2 flex-wrap">
+              {item.sauces.map((sauce) => (
+                <button
+                  key={sauce}
+                  type="button"
+                  className={`cursor-pointer px-3 py-1 rounded-full text-sm transition ${
+                    selectedSauce[item.id] === sauce
+                      ? "bg-[#D4AF37]/60 border border-[#D4AF37] text-white"
+                      : "bg-[#ffffff0d] border border-[#ffffff30] text-white hover:bg-[#ffffff1a]"
+                  }`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedSauce((prev) => ({ ...prev, [item.id]: sauce }));
+                  }}
+                >
+                  {sauce}
+                </button>
+              ))}
+            </div>
+          )}
+
+          <div className="flex justify-between items-center">
+            <div className="flex gap-1 text-yellow-400">
+              {[...Array(item.stars || 5)].map((_, idx) => (
+                <IconStarFilled key={idx} size={18} />
+              ))}
+            </div>
+            <span className="font-semibold">${item.price}</span>
+          </div>
+
+          <button
+            type="button"
+            className="py-2 px-3 rounded-md transition-colors duration-300 bg-primary text-white text-center
+              hover:bg-amber-500 cursor-pointer"
+          >
+            Agregar al carrito
+          </button>
         </motion.div>
       ))}
     </div>

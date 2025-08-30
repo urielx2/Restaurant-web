@@ -3,6 +3,7 @@ import { IconX } from "@tabler/icons-react";
 import { useCart } from "../../hooks/useCart";
 import { EmptyCart } from "./components/EmptyCart";
 import { CartItem } from "./components/CartItem";
+import { Details } from "./components";
 
 export const Cart = () => {
   const { openCart, setOpenCart, cartItems, removeFromCart, updateQuantity } =
@@ -19,7 +20,7 @@ export const Cart = () => {
           exit={{ opacity: 0 }}
         >
           <motion.div
-            className="absolute top-0 right-0 w-full sm:w-100 h-full bg-[#FFFFFFCC] backdrop-blur-sm text-black shadow-lg flex flex-col p-6 z-50"
+            className="absolute top-0 right-0 w-full sm:w-120 h-full bg-[#FFFFFFCC] backdrop-blur-sm text-black shadow-lg flex flex-col p-6 z-50"
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
@@ -37,18 +38,22 @@ export const Cart = () => {
             {cartItems.length === 0 ? (
               <EmptyCart />
             ) : (
-              <div className="flex-1 overflow-y-auto space-y-4 mt-20">
-                <h2 className="font-semibold text-2xl">Tu orden</h2>
-                <AnimatePresence>
-                  {cartItems.map((item) => (
-                    <CartItem
-                      key={item.id}
-                      item={item}
-                      updateQuantity={updateQuantity}
-                      removeFromCart={removeFromCart}
-                    />
-                  ))}
-                </AnimatePresence>
+              <div className="flex-1 overflow-y-auto space-y-4 mt-15">
+                <div className="bg-[#111] backdrop-blur-sm ring-1 ring-white/5 text-white p-6 rounded-2xl">
+                  <h3 className="text-xl font-bold ">Tu orden</h3>
+                  <AnimatePresence>
+                    {cartItems.map((item, index) => (
+                      <CartItem
+                        key={`${item.id}-${item.selectedSauce || "none"}`}
+                        item={item}
+                        updateQuantity={updateQuantity}
+                        removeFromCart={removeFromCart}
+                        isLast={index === cartItems.length - 1}
+                      />
+                    ))}
+                  </AnimatePresence>
+                </div>
+                <Details />
               </div>
             )}
           </motion.div>
