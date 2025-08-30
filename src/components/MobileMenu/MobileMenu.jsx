@@ -23,6 +23,7 @@ export const MobileMenu = ({ open, setOpen }) => {
             transition={{ type: "tween", duration: 0.3 }}
           >
             <button
+              type="button"
               className="self-end mb-6 text-gray-600 hover:text-primary cursor-pointer"
               onClick={() => setOpen(false)}
             >
