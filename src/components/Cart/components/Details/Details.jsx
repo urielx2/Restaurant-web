@@ -4,7 +4,7 @@ import { useCart } from "../../../../hooks/useCart";
 
 export const Details = () => {
   const { enqueueSnackbar } = useSnackbar();
-  const { totalPrice } = useCart();
+  const { totalPrice, cartItems, setCartItems, setOpenCart } = useCart();
 
   const [name, setName] = useState("");
   const [deliveryType, setDeliveryType] = useState("");
@@ -17,49 +17,62 @@ export const Details = () => {
   const handlePay = (e) => {
     e.preventDefault();
 
-    if (!name.trim()) {
-      enqueueSnackbar("Por favor ingresa un nombre para la orden.", {
+    if (!name.trim())
+      return enqueueSnackbar("Por favor ingresa un nombre.", {
         variant: "warning",
-        autoHideDuration: 2500,
-        anchorOrigin: { vertical: "top", horizontal: "center" },
       });
-      return;
-    }
-
-    if (!deliveryType) {
-      enqueueSnackbar("Selecciona un tipo de entrega.", {
+    if (!deliveryType)
+      return enqueueSnackbar("Selecciona un tipo de entrega.", {
         variant: "warning",
-        autoHideDuration: 2500,
-        anchorOrigin: { vertical: "top", horizontal: "center" },
       });
-      return;
-    }
-
-    if (deliveryType === "delivery" && !address.trim()) {
-      enqueueSnackbar("Ingresa la dirección para el envío.", {
+    if (deliveryType === "delivery" && !address.trim())
+      return enqueueSnackbar("Ingresa la dirección para el envío.", {
         variant: "warning",
-        autoHideDuration: 2500,
-        anchorOrigin: { vertical: "top", horizontal: "center" },
       });
-      return;
-    }
-
-    if (!paymentMethod) {
-      enqueueSnackbar("Selecciona un método de pago.", {
+    if (!paymentMethod)
+      return enqueueSnackbar("Selecciona un método de pago.", {
         variant: "warning",
-        autoHideDuration: 2500,
-        anchorOrigin: { vertical: "top", horizontal: "center" },
       });
-      return;
-    }
 
-    enqueueSnackbar("¡Orden lista para procesar! 🎉", {
-      variant: "success",
-      autoHideDuration: 2500,
-      anchorOrigin: { vertical: "top", horizontal: "center" },
+    const today = new Date();
+    const formattedDate = today.toLocaleString("es-MX", {
+      dateStyle: "short",
+      timeStyle: "short",
     });
 
-    // Aquí podrías redirigir o hacer el checkout real
+    let message = `*¡Nuevo pedido recibido!* \n\n`;
+    message += `*Nombre:* ${name}\n`;
+    message += `*Fecha:* ${formattedDate}\n`;
+    message += `*Método de pago:* ${
+      paymentMethod === "cash" ? "Efectivo" : "Transferencia"
+    }\n`;
+    message += `*Tipo de entrega:* ${
+      deliveryType === "delivery"
+        ? `Domicilio\n*Dirección:* ${address}`
+        : "Recoger en el restaurante"
+    }\n\n`;
+    message += `*Productos:*\n`;
+    cartItems.forEach((item, i) => {
+      message += `${i + 1}. ${item.text} ${
+        item.selectedSauce ? `(${item.selectedSauce})` : ""
+      } x${item.qty} = $${item.price * item.qty}\n`;
+    });
+    message += `\n*Subtotal:* $${totalPrice}\n`;
+    if (deliveryType === "delivery")
+      message += `*Costo de entrega:* $${deliveryFee}\n`;
+    message += `*Total a pagar:* $${total}\n\n`;
+    message += `¡Gracias por tu pedido! Le avisamos cuando este listo.`;
+
+    const whatsappURL = `https://wa.me/528123697420?text=${encodeURIComponent(
+      message
+    )}`;
+    window.open(whatsappURL, "_blank");
+
+    setCartItems([]);
+    localStorage.removeItem("cart");
+    setOpenCart(false);
+
+    enqueueSnackbar("¡Orden lista para procesar! 🎉", { variant: "success" });
   };
 
   return (
@@ -82,28 +95,20 @@ export const Details = () => {
       <div className="flex flex-col gap-2">
         <label className="font-medium text-gray-700">Tipo de entrega</label>
         <div className="flex gap-4">
-          <button
-            type="button"
-            onClick={() => setDeliveryType("pickup")}
-            className={`py-2 px-3 rounded-full border transition cursor-pointer ${
-              deliveryType === "pickup"
-                ? "bg-primary border-amber-200 text-white"
-                : "bg-gray-50 text-gray-700 border-gray-300 hover:bg-gray-100"
-            }`}
-          >
-            Pasar por él
-          </button>
-          <button
-            type="button"
-            onClick={() => setDeliveryType("delivery")}
-            className={`py-2 px-3 rounded-full border transition cursor-pointer ${
-              deliveryType === "delivery"
-                ? "bg-primary border-amber-200 text-white"
-                : "bg-gray-50 text-gray-700 border-gray-300 hover:bg-gray-100"
-            }`}
-          >
-            Envío a domicilio
-          </button>
+          {["pickup", "delivery"].map((type) => (
+            <button
+              key={type}
+              type="button"
+              onClick={() => setDeliveryType(type)}
+              className={`py-2 px-3 rounded-full border transition cursor-pointer ${
+                deliveryType === type
+                  ? "bg-primary border-amber-200 text-white"
+                  : "bg-gray-50 text-gray-700 border-gray-300 hover:bg-gray-100"
+              }`}
+            >
+              {type === "pickup" ? "Pasar por él 🍴" : "Envío a domicilio 🚚"}
+            </button>
+          ))}
         </div>
       </div>
 
@@ -118,7 +123,7 @@ export const Details = () => {
             className="bg-gray-50 border border-gray-300 text-gray-700 rounded-lg py-2 px-3 outline-none focus:ring-2 focus:ring-amber-400 focus:border-amber-400 transition"
           />
           <span className="text-xs italic">
-            +20 pesos extra por entrega a domicilio
+            +${deliveryFee} pesos extra por entrega a domicilio
           </span>
         </div>
       )}
@@ -126,28 +131,20 @@ export const Details = () => {
       <div className="flex flex-col gap-2">
         <label className="font-medium text-gray-700">Método de pago</label>
         <div className="flex gap-4">
-          <button
-            type="button"
-            onClick={() => setPaymentMethod("cash")}
-            className={`py-2 px-3 rounded-full border transition cursor-pointer ${
-              paymentMethod === "cash"
-                ? "bg-primary border-amber-200 text-white"
-                : "bg-gray-50 text-gray-700 border-gray-300 hover:bg-gray-100"
-            }`}
-          >
-            Efectivo
-          </button>
-          <button
-            type="button"
-            onClick={() => setPaymentMethod("transfer")}
-            className={`py-2 px-3 rounded-full border transition cursor-pointer ${
-              paymentMethod === "transfer"
-                ? "bg-primary border-amber-200 text-white"
-                : "bg-gray-50 text-gray-700 border-gray-300 hover:bg-gray-100"
-            }`}
-          >
-            Transferencia
-          </button>
+          {["cash", "transfer"].map((method) => (
+            <button
+              key={method}
+              type="button"
+              onClick={() => setPaymentMethod(method)}
+              className={`py-2 px-3 rounded-full border transition cursor-pointer ${
+                paymentMethod === method
+                  ? "bg-primary border-amber-200 text-white"
+                  : "bg-gray-50 text-gray-700 border-gray-300 hover:bg-gray-100"
+              }`}
+            >
+              {method === "cash" ? "Efectivo 💵" : "Transferencia 🏦"}
+            </button>
+          ))}
         </div>
       </div>
 
