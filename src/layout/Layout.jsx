@@ -11,7 +11,11 @@ export const Layout = () => {
       <header className="container mx-auto px-5 xl:px-0 py-5 flex justify-between items-center">
         <div className="flex-1">
           <Link to="/" className="font-bold text-lg uppercase">
-            Logo
+            <img
+              src="/logo.webp"
+              alt="logo"
+              className="w-20 h-auto object-cover"
+            />
           </Link>
         </div>
 

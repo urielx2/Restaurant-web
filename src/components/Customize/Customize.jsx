@@ -102,7 +102,7 @@ export const Customize = () => {
       <div
         className="mt-10 mx-auto cursor-pointer font-semibold text-lg rounded-md 
              transition-colors duration-300 py-2 px-3 uppercase 
-             bg-primary text-white hover:bg-amber-500 w-full md:w-fit text-center"
+             bg-primary text-white hover:bg-amber-400 shadow-lg shadow-[#D4AF37]/40w-full md:w-fit text-center"
       >
         <p className="font-light">
           Ordenar por:{" "}

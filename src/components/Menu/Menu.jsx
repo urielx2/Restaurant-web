@@ -37,7 +37,7 @@ function DishImage({ src, alt }) {
 
 function Section({ title, icon: Icon, items }) {
   return (
-    <section className="rounded-3xl bg-[#111]/70 backdrop-blur-sm ring-1 ring-white/5 p-6 md:p-8 shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_20px_60px_rgba(0,0,0,0.35)]">
+    <section className="h-fit rounded-3xl bg-[#111]/70 backdrop-blur-sm ring-1 ring-white/5 p-6 md:p-8 shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_20px_60px_rgba(0,0,0,0.35)]">
       <div className="flex items-center gap-3 mb-5">
         <Icon className="w-7 h-7 text-[#D4AF37]" />
         <h2 className="text-2xl md:text-3xl font-extrabold tracking-wide text-[#D4AF37]">
@@ -46,8 +46,8 @@ function Section({ title, icon: Icon, items }) {
       </div>
       <GoldRule />
 
-      <div className="mt-6 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
-        <div className="md:col-span-7 space-y-5">
+      <div className="mt-6">
+        <div className="space-y-5">
           {items.map((it) => (
             <PriceLine
               key={it.name}
@@ -58,7 +58,7 @@ function Section({ title, icon: Icon, items }) {
           ))}
         </div>
 
-        <div className="md:col-span-5 space-y-5">
+        <div className="mt-6">
           {items.map(
             (it) =>
               it.img && <DishImage key={it.name} src={it.img} alt={it.name} />
@@ -80,25 +80,25 @@ export const Menu = () => {
           <p className="text-white/60 mt-2">Restaurante No.1 en Zaragoza</p>
         </header>
 
-        <div className="space-y-10 md:space-y-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {sectionsMenu.map((section) => (
             <Section key={section.title} {...section} />
           ))}
         </div>
 
-        <div className="mt-12 flex items-center gap-3">
-          <div className="h-px flex-1 bg-[#D4AF37]/40" />
-          <span className="text-xs uppercase tracking-[0.2em] text-[#D4AF37]/80">
+        <div className="mt-16 flex items-center gap-3">
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#D4AF37]/50 to-transparent" />
+          <span className="text-center text-xs md:text-sm uppercase tracking-[0.2em] text-[#D4AF37]/80">
             Disfruta de nuestros deliciosos sabores
           </span>
-          <div className="h-px flex-1 bg-[#D4AF37]/40" />
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#D4AF37]/50 to-transparent" />
         </div>
 
-        <div className="mt-10 flex justify-center">
+        <div className="mt-12 flex justify-center">
           <ButtonLink
             href="/orders"
             text="Ordenar ya"
-            className="bg-primary text-white hover:bg-amber-500 uppercase w-full md:w-fit text-center"
+            className="bg-[#D4AF37] text-black font-bold hover:bg-amber-400 shadow-lg shadow-[#D4AF37]/40 px-10 py-4 rounded-xl uppercase tracking-wide transition"
           />
         </div>
       </div>

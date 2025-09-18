@@ -9,14 +9,14 @@ export const categories = [
   },
   {
     id: 2,
-    name: "Alitas",
-    image: "/alitas.webp",
+    name: "Boneless",
+    image: "/boneless.webp",
     icon: IconToolsKitchen3,
   },
   {
     id: 3,
     name: "Tacos",
-    image: "/tacos.webp",
+    image: "/tacos-erick.webp",
     icon: IconToolsKitchen3,
   },
 ];
