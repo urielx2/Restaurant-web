@@ -2,23 +2,11 @@ import { useState } from "react";
 import { Container } from "../layout";
 import { motion, AnimatePresence } from "framer-motion";
 import { properties } from "../../utils";
+import { Link } from "react-router-dom";
 
 export const Customize = () => {
   const [selected, setSelected] = useState(properties[0]);
   const [selectedIngredients, setSelectedIngredients] = useState([]);
-
-  const toggleIngredient = (id) => {
-    setSelectedIngredients((prev) =>
-      prev.includes(id) ? prev.filter((ing) => ing !== id) : [...prev, id]
-    );
-  };
-
-  const totalPrice =
-    selected.price +
-    selectedIngredients.reduce((acc, id) => {
-      const ing = selected.ingredients?.find((i) => i.id === id);
-      return acc + (ing ? ing.price : 0);
-    }, 0);
 
   return (
     <Container id="customize">
@@ -92,30 +80,22 @@ export const Customize = () => {
                     : "bg-amber-50 text-black"
                 }`}
               >
-                {ing.text} (+${ing.price})
+                {ing.text}
               </motion.button>
             ))}
           </AnimatePresence>
         </div>
       </div>
 
-      <div
-        className="mt-10 mx-auto cursor-pointer font-semibold text-lg rounded-md 
+      <div className="mt-10 flex justify-center">
+        <Link
+          to="/orders"
+          className="rounded-md 
              transition-colors duration-300 py-2 px-3 uppercase 
-             bg-primary text-white hover:bg-amber-400 shadow-lg shadow-[#D4AF37]/40w-full md:w-fit text-center"
-      >
-        <p className="font-light">
-          Ordenar por:{" "}
-          <motion.span
-            key={totalPrice}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-            className="font-bold"
-          >
-            ${totalPrice}
-          </motion.span>
-        </p>
+             bg-primary text-white hover:bg-amber-400 shadow-lg shadow-[#D4AF37]/40w-full text-center w-full md:w-fit"
+        >
+          <span className="font-light text-lg ">Ordenar</span>
+        </Link>
       </div>
     </Container>
   );
