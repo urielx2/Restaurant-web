@@ -28,7 +28,7 @@ export const Nav = ({ open, setOpen }) => {
           <ButtonLink
             href="/orders"
             text="Ordenar"
-            className="bg-primary text-white hover:bg-amber-500"
+            className="bg-primary text-white hover:bg-amber-400 shadow-lg shadow-[#D4AF37]/40"
           />
         </div>
 

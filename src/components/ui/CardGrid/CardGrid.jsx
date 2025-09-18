@@ -88,7 +88,7 @@ export const CardGrid = ({ items }) => {
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
       {items.map((item, i) => (
         <motion.div
           key={item.id}
@@ -104,7 +104,7 @@ export const CardGrid = ({ items }) => {
             <motion.img
               src={item.img}
               alt={item.text}
-              className="rounded-3xl w-full object-cover cursor-pointer"
+              className="rounded-2xl w-full object-cover cursor-pointer h-50 md:h-36 overflow-hidden"
               variants={imageVariants}
             />
             <h4 className="font-bold text-lg">{item.text}</h4>
@@ -143,7 +143,7 @@ export const CardGrid = ({ items }) => {
 
           <button
             type="button"
-            className="py-2 px-3 rounded-md transition-colors duration-300 bg-primary text-white text-center
+            className="py-2 px-3 rounded-md transition-colors duration-300 bg-[#af5900] text-white text-center
               hover:bg-amber-500 cursor-pointer"
           >
             Agregar al carrito

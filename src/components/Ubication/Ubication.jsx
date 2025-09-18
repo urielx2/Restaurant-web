@@ -27,7 +27,7 @@ export const Ubication = () => {
               <ButtonLink
                 href="https://maps.app.goo.gl/AUWb25e9WHNi19kM8"
                 text="Visitar"
-                className="bg-primary text-white hover:bg-amber-500"
+                className="bg-primary text-white hover:bg-amber-400 shadow-lg shadow-[#D4AF37]/40"
               />
             </div>
           </div>

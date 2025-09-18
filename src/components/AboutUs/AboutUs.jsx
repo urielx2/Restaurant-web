@@ -13,9 +13,9 @@ export const AboutUs = () => {
             className="w-full h-auto object-cover rounded-2xl"
           />
           <img
-            src="/women3.jpg"
+            src="/yessi.webp"
             alt="user"
-            className="absolute bottom-0 rounded-full w-20 h-20 translate-y-3 md:-translate-y-4 md:-translate-x-10"
+            className="border absolute bottom-0 rounded-full w-20 h-20 object-cover translate-y-3 md:-translate-y-4 md:-translate-x-10"
           />
 
           <div className="absolute top-0 right-0 flex flex-col justify-center items-center gap-2 bg-primary rounded-xl p-3 md:p-4 -translate-y-10 md:translate-x-10 md:translate-y-5">
@@ -32,14 +32,15 @@ export const AboutUs = () => {
             <h2 className="text-4xl font-semibold">Excelencia y experiencia</h2>
           </div>
           <p className="text-sm font-light max-w-lg">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation
+            En nuestro restaurante creemos que la buena comida une a las
+            personas. Cada platillo está preparado con ingredientes frescos y
+            pasión por la cocina, buscando que cada visita sea una experiencia
+            llena de sabor, calidez y momentos inolvidables.
           </p>
           <ButtonLink
             href="/orders"
             text="Ordenar ya"
-            className="uppercase bg-primary text-white hover:bg-amber-500 self-start"
+            className="uppercase bg-primary text-white hover:bg-amber-400 shadow-lg shadow-[#D4AF37]/40 self-start"
           />
         </div>
       </div>
